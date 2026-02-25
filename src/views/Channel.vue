@@ -3,38 +3,40 @@
     <div class="left-icons">
       <div class="icon-item">
         <div
-            class="topbottom"
-            style="
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-              align-items: center;
-              line-height: normal;
-            "
-          >
-            <el-icon><Tools /></el-icon>
-            <span>动态</span>
-          </div>
+          class="topbottom"
+          style="
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            line-height: normal;
+          "
+        >
+          <el-icon><Tools /></el-icon>
+          <span>动态</span>
+        </div>
       </div>
       <div class="icon-item">
         <div
-            class="topbottom"
-            style="
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-              align-items: center;
-              line-height: normal;
-            "
-          >
-            <el-icon><Tools /></el-icon>
-            <span>热门</span>
-          </div>
+          class="topbottom"
+          style="
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            line-height: normal;
+          "
+        >
+          <el-icon><Tools /></el-icon>
+          <span>热门</span>
+        </div>
       </div>
     </div>
 
     <div class="center-channel-grid">
-      <el-button style="margin: 0; padding: 0;" v-for="item in channels" :key="item">{{ item.title }}</el-button>
+      <el-button style="margin: 0; padding: 0" v-for="item in channels" :key="item">{{
+        item.title
+      }}</el-button>
     </div>
 
     <div class="right-links-grid">
@@ -77,14 +79,13 @@ const channels = ref([
   { title: '视频6' },
   // ...
 ])
-
 </script>
 
 <style scoped>
 .left-icons {
-    display: flex;
-    justify-content: space-between;
-    gap: 2vw 2vh;
+  display: flex;
+  justify-content: space-between;
+  gap: 2vw 2vh;
 }
 .channel-nav {
   display: flex;
@@ -102,7 +103,6 @@ const channels = ref([
   grid-column-gap: 8px;
   grid-row-gap: 10px;
   flex: 1; /* 占据剩余空间 */
-  
 }
 
 /* 右侧链接区域 */

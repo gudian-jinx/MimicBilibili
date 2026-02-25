@@ -133,16 +133,24 @@
     </div>
     <div class="mainlayout">
       <div class="nav">
-        <Channel/>
+        <Channel />
       </div>
 
       <div class="content-grid">
         <div class="carousel">
-          <Carousel/>
+          <Carousel />
         </div>
 
         <div v-for="(video, index) in videoList" :key="index" class="video-card">
-          {{ video.title }}
+          <el-card style="max-width: 480px">
+            <template #header>
+              <div class="card-header">
+                <span>Card name</span>
+              </div>
+            </template>
+            <p v-for="o in 4" :key="o" class="text item">{{ 'List item ' + o }}</p>
+            <template #footer>Footer content</template>
+          </el-card>
         </div>
       </div>
     </div>
@@ -171,7 +179,6 @@ const videoList = ref([
   { title: '视频6' },
   { title: '视频4' },
   { title: '视频5' },
-  { title: '视频6' },
   // ...
 ])
 
@@ -201,13 +208,12 @@ const handleSelect = (key, keyPath) => {
 </script>
 
 <style scoped>
-
 .carousel {
   grid-column: span 2;
   grid-row: span 2;
   /* 移除背景颜色，或者保留检查 */
-  background: #ffaaaa; 
-  
+  background: #ffaaaa;
+
   /* 关键：确保内部的 Carousel 组件占满容器 */
   display: flex;
   flex-direction: column;
@@ -311,8 +317,8 @@ const handleSelect = (key, keyPath) => {
 }
 
 /* 普通元素：自动流式排列，不需要写位置 */
-.video-card {
+/* .video-card {
   height: 180px;
   background: #e0e0e0;
-}
+} */
 </style>

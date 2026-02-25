@@ -3,7 +3,7 @@
     <el-carousel-item v-for="item in items" :key="item">
       <div class="carousel-content">
         <h3>
-            <img :src="item" alt="图片找不到了" class="imglb">
+          <img :src="item" alt="图片找不到了" class="imglb" />
         </h3>
       </div>
     </el-carousel-item>
@@ -11,22 +11,18 @@
 </template>
 
 <script setup>
-import {ref} from 'vue'
+import { ref } from 'vue'
 import img1 from '@/assets/avatar.png'
 import img2 from '@/assets/bg.png'
 import img3 from '@/assets/logo.png'
-const items = ref([
-    img1, img2, img3
-])
+const items = ref([img1, img2, img3])
 </script>
 
 <style scoped>
-
 .imglb {
-    width: 100%;
+  width: 100%;
   height: 100%;
   object-fit: cover;
-
 }
 /* 整个轮播图组件也要撑满 */
 .el-carousel {
