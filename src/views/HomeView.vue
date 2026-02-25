@@ -266,6 +266,7 @@ const handleSelect = (key, keyPath) => {
   background-size: cover;
   background-position: center center;
   height: 200px;
+  min-width: 1200px
 }
 
 .el-menu-demo {
@@ -276,13 +277,18 @@ const handleSelect = (key, keyPath) => {
   border: none !important;
   display: flex;
   justify-content: space-between;
+  width: 90%; /* 保持与 .mainlayout 一致的宽度 */
+  max-width: 100%;
+  min-width: 1200px; /* 让菜单和下方的 Grid 同步产生滚动条，而不是互相挤压 */
 }
 .el-menu-item {
   color: white;
 }
 /* 1. 缩小每个菜单项的左右内边距 */
 :deep(.el-menu--horizontal > .el-menu-item) {
-  padding: 0 10px; /* 将原来的 20px 缩小到 10px 或更小 */
+  padding: 0 8px !important; /* 进一步压缩 */
+  min-width: auto !important; /* 强制取消最小宽度限制 */
+  flex-shrink: 1;             /* 确保每一项都能参与收缩 */
 }
 
 /* 2. 针对带图标和文字垂直排列的特殊项，进一步压缩 */
@@ -290,14 +296,22 @@ const handleSelect = (key, keyPath) => {
   min-width: 40px; /* 限制最小宽度 */
 }
 
+:deep(.el-menu-item .el-button) {
+  padding: 8px 12px; /* 减小按钮内边距 */
+  margin-left: 0;
+}
+
 /* 3. 调整搜索框所在的 menu-item */
 /* 搜索框通常不需要 padding，因为它内部已经有间距了 */
+/* 修改这一段 */
 :deep(.el-menu-item:has(input)) {
   padding: 0 5px !important;
+  flex-shrink: 1;    /* 允许收缩 */
+  min-width: 100px;  /* 设置一个最小收缩限度 */
 }
 
 .mainlayout {
-  width: 80%;
+  width: 90%;
   margin: 0 auto; /* 将容器水平居中 */
   min-width: 1200px; /* 建议加一个最小宽度，防止屏幕缩小时你的菜单挤成一团 */
 }
@@ -315,10 +329,4 @@ const handleSelect = (key, keyPath) => {
   grid-row: span 2;
   background: #ffaaaa;
 }
-
-/* 普通元素：自动流式排列，不需要写位置 */
-/* .video-card {
-  height: 180px;
-  background: #e0e0e0;
-} */
 </style>
