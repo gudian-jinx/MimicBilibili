@@ -1,143 +1,149 @@
 <template>
-    <el-menu
-        :default-active="activeIndex"
-        class="el-menu-demo"
-        mode="horizontal"
-        :ellipsis="false"
-        @select="handleSelect"
-      >
-        <el-menu-item index="1">
+  <el-menu
+    :default-active="activeIndex"
+    class="el-menu-demo"
+    mode="horizontal"
+    :ellipsis="false"
+    @select="handleSelect"
+  >
+    <el-menu-item index="1">
+      <router-link to="/home">
+        <slot name="firstItem">
           <el-icon><Monitor /></el-icon>首页
-        </el-menu-item>
-        <el-menu-item index="2"> 番剧 </el-menu-item>
-        <el-menu-item index="3"> 直播 </el-menu-item>
-        <el-menu-item index="4"> 游戏中心 </el-menu-item>
-        <el-menu-item index="5"> 会员购 </el-menu-item>
-        <el-menu-item index="6"> 漫画 </el-menu-item>
-        <el-menu-item index="7"> 赛事 </el-menu-item>
-        <el-menu-item index="8"> 新春会 </el-menu-item>
-        <el-menu-item index="9">
-          <el-icon><Download /></el-icon>下载客户端
-        </el-menu-item>
-        <el-menu-item index="10" style="flex-grow: 2; max-width: 300px">
-          <el-input
-            v-model="input1"
-            style="width: 100%"
-            size="large"
-            placeholder="Please Input"
-            :suffix-icon="Search"
-          />
-        </el-menu-item>
-        <el-menu-item>
-          <el-avatar :src="urlAvatar" />
-        </el-menu-item>
-        <el-menu-item>
-          <div
-            class="topbottom"
-            style="
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-              align-items: center;
-              line-height: normal;
-            "
-          >
-            <el-icon><Tools /></el-icon>
-            <span>大会员</span>
-          </div>
-        </el-menu-item>
-        <el-menu-item>
-          <div
-            class="topbottom"
-            style="
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-              align-items: center;
-              line-height: normal;
-            "
-          >
-            <el-icon><Tools /></el-icon>
-            <span>消息</span>
-          </div>
-        </el-menu-item>
-        <el-menu-item>
-          <div
-            class="topbottom"
-            style="
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-              align-items: center;
-              line-height: normal;
-            "
-          >
-            <el-icon><Tools /></el-icon>
-            <span>动态</span>
-          </div>
-        </el-menu-item>
-        <el-menu-item>
-          <div
-            class="topbottom"
-            style="
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-              align-items: center;
-              line-height: normal;
-            "
-          >
-            <el-icon><Tools /></el-icon>
-            <span>收藏</span>
-          </div>
-        </el-menu-item>
-        <el-menu-item>
-          <div
-            class="topbottom"
-            style="
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-              align-items: center;
-              line-height: normal;
-            "
-          >
-            <el-icon><Tools /></el-icon>
-            <span>历史</span>
-          </div>
-        </el-menu-item>
-        <el-menu-item>
-          <div
-            class="topbottom"
-            style="
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-              align-items: center;
-              line-height: normal;
-            "
-          >
-            <el-icon><Tools /></el-icon>
-            <span>创作中心</span>
-          </div>
-        </el-menu-item>
-        <el-menu-item>
-          <el-button type="danger">
-            <el-icon><Tools /></el-icon>
-            投稿
-          </el-button>
-        </el-menu-item>
-      </el-menu>
+        </slot>
+      </router-link>
+    </el-menu-item>
+    <el-menu-item index="2"> 番剧 </el-menu-item>
+    <el-menu-item index="3"> 直播 </el-menu-item>
+    <el-menu-item index="4"> 游戏中心 </el-menu-item>
+    <el-menu-item index="5"> 会员购 </el-menu-item>
+    <el-menu-item index="6"> 漫画 </el-menu-item>
+    <el-menu-item index="7"> 赛事 </el-menu-item>
+    <el-menu-item index="8"> 新春会 </el-menu-item>
+    <el-menu-item index="9">
+      <el-icon><Download /></el-icon>下载客户端
+    </el-menu-item>
+    <el-menu-item index="10" style="flex-grow: 2; max-width: 300px">
+      <el-input
+        v-model="input1"
+        style="width: 100%"
+        size="large"
+        placeholder="Please Input"
+        :suffix-icon="Search"
+      />
+    </el-menu-item>
+    <router-link :to="profileurl">
+      <el-menu-item>
+        <el-avatar :src="urlAvatar" />
+      </el-menu-item>
+    </router-link>
+    <el-menu-item>
+      <div
+        class="topbottom"
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          line-height: normal;
+        "
+      >
+        <el-icon><Tools /></el-icon>
+        <span>大会员</span>
+      </div>
+    </el-menu-item>
+    <el-menu-item>
+      <div
+        class="topbottom"
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          line-height: normal;
+        "
+      >
+        <el-icon><Tools /></el-icon>
+        <span>消息</span>
+      </div>
+    </el-menu-item>
+    <el-menu-item>
+      <div
+        class="topbottom"
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          line-height: normal;
+        "
+      >
+        <el-icon><Tools /></el-icon>
+        <span>动态</span>
+      </div>
+    </el-menu-item>
+    <el-menu-item>
+      <div
+        class="topbottom"
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          line-height: normal;
+        "
+      >
+        <el-icon><Tools /></el-icon>
+        <span>收藏</span>
+      </div>
+    </el-menu-item>
+    <el-menu-item>
+      <div
+        class="topbottom"
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          line-height: normal;
+        "
+      >
+        <el-icon><Tools /></el-icon>
+        <span>历史</span>
+      </div>
+    </el-menu-item>
+    <el-menu-item>
+      <div
+        class="topbottom"
+        style="
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          line-height: normal;
+        "
+      >
+        <el-icon><Tools /></el-icon>
+        <span>创作中心</span>
+      </div>
+    </el-menu-item>
+    <el-menu-item>
+      <el-button type="danger">
+        <el-icon><Tools /></el-icon>
+        投稿
+      </el-button>
+    </el-menu-item>
+  </el-menu>
 </template>
 
 <script setup>
-    
 import header from '@/assets/avatar.png'
 const urlAvatar = header
+const profileurl = '/profile'
 </script>
 
 <style scoped>
-    /* 强制所有菜单项可以收缩 */
+/* 强制所有菜单项可以收缩 */
 :deep(.el-menu-item) {
   flex-shrink: 1; /* 允许收缩 */
   min-width: 0; /* 允许缩小到极值 */
@@ -184,6 +190,6 @@ const urlAvatar = header
 :deep(.el-menu--horizontal > .el-menu-item) {
   padding: 0 8px !important; /* 进一步压缩 */
   min-width: auto !important; /* 强制取消最小宽度限制 */
-  flex-shrink: 1;             /* 确保每一项都能参与收缩 */
+  flex-shrink: 1; /* 确保每一项都能参与收缩 */
 }
 </style>

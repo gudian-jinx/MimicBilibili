@@ -7,9 +7,35 @@
     <title>Vite App</title>
     <style>
       * {
-    margin: 0;
-    padding: 0;
-}
+          margin: 0;
+          padding: 0;
+          
+      }
+      *, *::before, *::after {
+        box-sizing: border-box; /* 以后写 width: 100px 就是 100px，padding 不会把它撑开 */
+      }
+      html {
+        scroll-behavior: smooth; /* 点击锚点或滚动时更丝滑 */
+        -webkit-text-size-adjust: 100%; /* 防止移动端旋转屏幕时字体大小乱跳 */
+      }
+
+      body {
+        font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+        -webkit-font-smoothing: antialiased; /* 让字体在 macOS/Chrome 上看起来更清晰 */
+        -moz-osx-font-smoothing: grayscale;
+        line-height: 1.5; /* 标准行高，增加阅读舒适度 */
+      }
+      a {
+        text-decoration: none;
+        color: inherit; /* 继承父元素的颜色，而不是死板的蓝色 */
+        cursor: pointer;
+      }
+
+      ul, ol {
+        list-style: none; /* 去掉无序列表默认的小圆点 */
+      }
+
+
     </style>
   </head>
   <body>

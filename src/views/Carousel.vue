@@ -12,7 +12,6 @@
 
 <script setup>
 const props = defineProps(['imgList'])
-
 </script>
 
 <style scoped>

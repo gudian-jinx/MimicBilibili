@@ -1,28 +1,24 @@
 <template>
-  <div class="mainlayoutt">
-    <div class="header">
-      <header-nav/>
-    </div>
-    <div class="mainlayout">
-      <div class="nav">
-        <Channel />
-      </div>
-
-      <div class="content-grid">
-        <div class="carousel">
-          <Carousel
-            :imgList="imgList"
-          />
-        </div>
-
-        <div v-for="item in videoList" :key="item.index" class="video-card">
-          <VideoCard :videoData="item" />
-        </div>
-      </div>
-    </div>
-
-    <div class="loading" v-if="isLoading">加载更多中...</div>
+  <div class="header">
+    <header-nav />
   </div>
+  <div class="mainlayout">
+    <div class="nav">
+      <Channel />
+    </div>
+
+    <div class="content-grid">
+      <div class="carousel">
+        <Carousel :imgList="imgList" />
+      </div>
+
+      <div v-for="item in videoList" :key="item.index" class="video-card">
+        <VideoCard :videoData="item" />
+      </div>
+    </div>
+  </div>
+
+  <div class="loading" v-if="isLoading">加载更多中...</div>
 </template>
 
 <script setup>
@@ -42,74 +38,75 @@ const videoList = ref([
   {
     index: 1,
     head: videoCardImg,
-    mid: "Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯",
-    bottom: "up"
+    mid: 'Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯',
+    bottom: 'up',
   },
   {
     index: 2,
     head: videoCardImg,
-    mid: "Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯",
-    bottom: "up"
+    mid: 'Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯',
+    bottom: 'up',
   },
-    {
+  {
     index: 3,
     head: videoCardImg,
-    mid: "Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯",
-    bottom: "up"
+    mid: 'Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯',
+    bottom: 'up',
   },
-    {
+  {
     index: 4,
     head: videoCardImg,
-    mid: "Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯",
-    bottom: "up"
+    mid: 'Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯',
+    bottom: 'up',
   },
-      {
+  {
     index: 4,
     head: videoCardImg,
-    mid: "Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯",
-    bottom: "up"
+    mid: 'Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯',
+    bottom: 'up',
   },
-      {
+  {
     index: 4,
     head: videoCardImg,
-    mid: "Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯",
-    bottom: "up"
+    mid: 'Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯',
+    bottom: 'up',
   },
-      {
+  {
     index: 4,
     head: videoCardImg,
-    mid: "Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯",
-    bottom: "up"
+    mid: 'Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯',
+    bottom: 'up',
   },
-      {
+  {
     index: 4,
     head: videoCardImg,
-    mid: "Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯",
-    bottom: "up"
+    mid: 'Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯',
+    bottom: 'up',
   },
-      {
+  {
     index: 4,
     head: videoCardImg,
-    mid: "Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯",
-    bottom: "up"
-  },    {
-    index: 4,
-    head: videoCardImg,
-    mid: "Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯",
-    bottom: "up"
+    mid: 'Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯',
+    bottom: 'up',
   },
-      {
+  {
     index: 4,
     head: videoCardImg,
-    mid: "Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯",
-    bottom: "up"
+    mid: 'Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯',
+    bottom: 'up',
   },
-      {
+  {
     index: 4,
     head: videoCardImg,
-    mid: "Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯",
-    bottom: "up"
-  }
+    mid: 'Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯',
+    bottom: 'up',
+  },
+  {
+    index: 4,
+    head: videoCardImg,
+    mid: 'Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯',
+    bottom: 'up',
+  },
 ])
 
 const urlBg = Bg
@@ -152,10 +149,6 @@ const handleSelect = (key, keyPath) => {
   height: 100%;
 }
 
-.mainlayoutt {
-  width: 100%;
-  margin: 0 auto;
-}
 .header {
   width: 100%;
   border-bottom: solid 1px var(--el-menu-border-color); /* 模拟底边线 */
@@ -164,7 +157,7 @@ const handleSelect = (key, keyPath) => {
   background-size: cover;
   background-position: center center;
   height: 200px;
-  min-width: 1200px
+  min-width: 1200px;
 }
 
 /* 2. 针对带图标和文字垂直排列的特殊项，进一步压缩 */
@@ -182,8 +175,8 @@ const handleSelect = (key, keyPath) => {
 /* 修改这一段 */
 :deep(.el-menu-item:has(input)) {
   padding: 0 5px !important;
-  flex-shrink: 1;    /* 允许收缩 */
-  min-width: 100px;  /* 设置一个最小收缩限度 */
+  flex-shrink: 1; /* 允许收缩 */
+  min-width: 100px; /* 设置一个最小收缩限度 */
 }
 
 .mainlayout {
