@@ -137,7 +137,12 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
+
 import header from '@/assets/avatar.png'
+import { Search } from '@element-plus/icons-vue'
+
+const input1 = ref('')
 const urlAvatar = header
 const profileurl = '/profile'
 </script>

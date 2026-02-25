@@ -59,7 +59,7 @@ import avaterUrl from '@/assets/avatar.png'
   
   /* 关键修改：去掉固定的 200px */
   flex: 1; 
-  width: 90%;
+  width: 95%;
   margin: 0 auto;
   color: white; /* 之前你写的是 red，B站风格通常是 white */
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);

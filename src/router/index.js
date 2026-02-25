@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import Profile from '@/views/Profile.vue'
+import ProfileHome from '@/views/ProfileHome.vue'
 
 const routes = [
   {
@@ -14,6 +15,13 @@ const routes = [
   {
     path: '/profile',
     component: Profile,
+    children: [
+      {
+        path: 'home',
+        component: ProfileHome,
+      },
+    ],
+
   },
 ]
 
