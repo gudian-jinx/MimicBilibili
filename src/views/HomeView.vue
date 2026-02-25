@@ -10,19 +10,13 @@
 
       <div class="content-grid">
         <div class="carousel">
-          <Carousel />
+          <Carousel
+            :imgList="imgList"
+          />
         </div>
 
-        <div v-for="(video, index) in videoList" :key="index" class="video-card">
-          <el-card style="max-width: 480px">
-            <template #header>
-              <div class="card-header">
-                <span>Card name</span>
-              </div>
-            </template>
-            <p v-for="o in 4" :key="o" class="text item">{{ 'List item ' + o }}</p>
-            <template #footer>Footer content</template>
-          </el-card>
+        <div v-for="item in videoList" :key="item.index" class="video-card">
+          <VideoCard :videoData="item" />
         </div>
       </div>
     </div>
@@ -37,21 +31,85 @@ import Bg from '@/assets/bg.png'
 import Channel from './Channel.vue'
 import Carousel from './Carousel.vue'
 import HeaderNav from './HeaderNav.vue'
-console.log(Bg)
-// 初始视频列表
+import VideoCard from './VideoCard.vue'
+import img1 from '@/assets/img1.png'
+import img2 from '@/assets/img2.png'
+import img3 from '@/assets/img3.png'
+import videoCardImg from '@/assets/videoCardImg.png'
+
+const imgList = ref([img1, img2, img3])
 const videoList = ref([
-  { title: '视频1' },
-  { title: '视频2' },
-  { title: '视频3' },
-  { title: '视频4' },
-  { title: '视频5' },
-  { title: '视频6' },
-  { title: '视频4' },
-  { title: '视频5' },
-  { title: '视频6' },
-  { title: '视频4' },
-  { title: '视频5' },
-  // ...
+  {
+    index: 1,
+    head: videoCardImg,
+    mid: "Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯",
+    bottom: "up"
+  },
+  {
+    index: 2,
+    head: videoCardImg,
+    mid: "Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯",
+    bottom: "up"
+  },
+    {
+    index: 3,
+    head: videoCardImg,
+    mid: "Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯",
+    bottom: "up"
+  },
+    {
+    index: 4,
+    head: videoCardImg,
+    mid: "Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯",
+    bottom: "up"
+  },
+      {
+    index: 4,
+    head: videoCardImg,
+    mid: "Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯",
+    bottom: "up"
+  },
+      {
+    index: 4,
+    head: videoCardImg,
+    mid: "Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯",
+    bottom: "up"
+  },
+      {
+    index: 4,
+    head: videoCardImg,
+    mid: "Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯",
+    bottom: "up"
+  },
+      {
+    index: 4,
+    head: videoCardImg,
+    mid: "Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯",
+    bottom: "up"
+  },
+      {
+    index: 4,
+    head: videoCardImg,
+    mid: "Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯",
+    bottom: "up"
+  },    {
+    index: 4,
+    head: videoCardImg,
+    mid: "Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯",
+    bottom: "up"
+  },
+      {
+    index: 4,
+    head: videoCardImg,
+    mid: "Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯",
+    bottom: "up"
+  },
+      {
+    index: 4,
+    head: videoCardImg,
+    mid: "Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯",
+    bottom: "up"
+  }
 ])
 
 const urlBg = Bg
@@ -66,8 +124,6 @@ const loadMoreVideos = () => {
     const newData = [{ title: '新视频A' }, { title: '新视频B' }, { title: '新视频C' }]
     videoList.value.push(...newData)
     isLoading.value = false
-
-    // CSS Grid 会自动把新追加的元素排列到下一行，完全不用动 CSS！
   }, 1000)
 }
 
@@ -96,9 +152,6 @@ const handleSelect = (key, keyPath) => {
   height: 100%;
 }
 
-
-
-
 .mainlayoutt {
   width: 100%;
   margin: 0 auto;
@@ -113,8 +166,6 @@ const handleSelect = (key, keyPath) => {
   height: 200px;
   min-width: 1200px
 }
-
-
 
 /* 2. 针对带图标和文字垂直排列的特殊项，进一步压缩 */
 .topbottom {

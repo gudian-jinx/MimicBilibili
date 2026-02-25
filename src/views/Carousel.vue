@@ -1,6 +1,6 @@
 <template>
   <el-carousel :interval="5000" arrow="always" height="100%">
-    <el-carousel-item v-for="item in items" :key="item">
+    <el-carousel-item v-for="item in imgList" :key="item">
       <div class="carousel-content">
         <h3>
           <img :src="item" alt="图片找不到了" class="imglb" />
@@ -11,11 +11,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import img1 from '@/assets/avatar.png'
-import img2 from '@/assets/bg.png'
-import img3 from '@/assets/logo.png'
-const items = ref([img1, img2, img3])
+const props = defineProps(['imgList'])
+
 </script>
 
 <style scoped>
