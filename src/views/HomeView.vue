@@ -137,7 +137,9 @@
       </div>
 
       <div class="content-grid">
-        <div class="carousel">这里是轮播图 (Span 2x2)</div>
+        <div class="carousel">
+          <Carousel/>
+        </div>
 
         <div v-for="(video, index) in videoList" :key="index" class="video-card">
           {{ video.title }}
@@ -154,6 +156,7 @@ import { ref } from 'vue'
 import header from '@/assets/avatar.png'
 import Bg from '@/assets/bg.png'
 import Channel from './Channel.vue'
+import Carousel from './Carousel.vue'
 console.log(Bg)
 // 初始视频列表
 const videoList = ref([
@@ -198,6 +201,23 @@ const handleSelect = (key, keyPath) => {
 </script>
 
 <style scoped>
+
+.carousel {
+  grid-column: span 2;
+  grid-row: span 2;
+  /* 移除背景颜色，或者保留检查 */
+  background: #ffaaaa; 
+  
+  /* 关键：确保内部的 Carousel 组件占满容器 */
+  display: flex;
+  flex-direction: column;
+}
+
+/* 穿透确保组件宽度和高度都是 100% */
+.carousel > :first-child {
+  width: 100%;
+  height: 100%;
+}
 /* 强制所有菜单项可以收缩 */
 :deep(.el-menu-item) {
   flex-shrink: 1; /* 允许收缩 */
