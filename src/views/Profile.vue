@@ -9,7 +9,7 @@
     <ProfileBanner></ProfileBanner>
   </div>
   <div class="mainlayout">
-    <ProfileOption/>
+    <ProfileOption />
     <router-view></router-view>
   </div>
 </template>
@@ -19,7 +19,7 @@ import { ref } from 'vue'
 import HeaderNav from './HeaderNav.vue'
 import logo from '@/assets/logo.png'
 import ProfileBanner from './ProfileBanner.vue'
-import ProfileOption from './ProfileOption.vue';
+import ProfileOption from './ProfileOption.vue'
 </script>
 
 <style scoped>
@@ -37,10 +37,9 @@ import ProfileOption from './ProfileOption.vue';
   overflow: hidden; /* 防止子组件溢出 */
 }
 .mainlayout {
-  width: 95%;
+  width: 85%;
   margin: 0 auto; /* 将容器水平居中 */
   min-width: 1200px; /* 建议加一个最小宽度，防止屏幕缩小时你的菜单挤成一团 */
   height: 200px;
-  background-color: red;
 }
 </style>
