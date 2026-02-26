@@ -110,6 +110,7 @@ const videoList = ref([
 .profile-home {
   display: flex;
   gap: 20px;
+  align-items: flex-start;
 }
 .left {
   flex: 4;
@@ -117,7 +118,7 @@ const videoList = ref([
 .right {
   flex: 1;
   display: grid;
-  grid-template-rows: repeat(5, 1fr);
+  grid-template-rows: repeat(5, auto);
   gap: 20px;
 }
 .left-content {
@@ -158,6 +159,7 @@ const videoList = ref([
   justify-content: center; /* 水平 */
   align-items: center; /* 垂直 */
   background-color: rgb(246, 247, 248);
+  padding: 6%;
 
   border-radius: 10%;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);

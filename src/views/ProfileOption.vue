@@ -5,18 +5,17 @@
       class="left-menu"
       mode="horizontal"
       :ellipsis="false"
-      :router="true"
       @select="handleSelect"
     >
-      <el-menu-item index="profile/home"
+      <el-menu-item index="ProfileHome"
         ><el-icon><House /></el-icon>主页</el-menu-item
       >
-      <el-menu-item index="2">动态</el-menu-item>
-      <el-menu-item index="3">投稿</el-menu-item>
-      <el-menu-item index="4">合集和系列</el-menu-item>
-      <el-menu-item index="5">收藏</el-menu-item>
-      <el-menu-item index="6">追番追剧</el-menu-item>
-      <el-menu-item index="7">设置</el-menu-item>
+      <el-menu-item index="ProfileOther">动态</el-menu-item>
+      <el-menu-item index="ProfileOther2">投稿</el-menu-item>
+      <el-menu-item index="ProfileOther3">合集和系列</el-menu-item>
+      <el-menu-item index="ProfileOther4">收藏</el-menu-item>
+      <el-menu-item index="ProfileOther5">追番追剧</el-menu-item>
+      <el-menu-item index="ProfileOther6">设置</el-menu-item>
 
       <div class="search-wrapper">
         <el-input
@@ -52,15 +51,16 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-
 const activeIndex = ref('1')
-const handleSelect = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
-}
+
 import { Search } from '@element-plus/icons-vue'
-const input1 = ref('')
-const input2 = ref('')
+import { useRouter } from 'vue-router'
+const router = useRouter()
 const input3 = ref('')
+
+const handleSelect = (name) => {
+  router.push({ name })
+}
 </script>
 
 <style scoped>

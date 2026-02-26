@@ -6,12 +6,10 @@
     :ellipsis="false"
     @select="handleSelect"
   >
-    <el-menu-item index="1">
-      <router-link to="/home">
-        <slot name="firstItem">
-          <el-icon><Monitor /></el-icon>首页
-        </slot>
-      </router-link>
+    <el-menu-item index="Home">
+      <slot name="firstItem">
+        <el-icon><Monitor /></el-icon>首页
+      </slot>
     </el-menu-item>
     <el-menu-item index="2"> 番剧 </el-menu-item>
     <el-menu-item index="3"> 直播 </el-menu-item>
@@ -32,11 +30,9 @@
         :suffix-icon="Search"
       />
     </el-menu-item>
-    <router-link :to="profileurl">
-      <el-menu-item>
-        <el-avatar :src="urlAvatar" />
-      </el-menu-item>
-    </router-link>
+    <el-menu-item index="Profile">
+      <el-avatar :src="urlAvatar" />
+    </el-menu-item>
     <el-menu-item>
       <div
         class="topbottom"
@@ -141,10 +137,14 @@ import { ref } from 'vue'
 
 import header from '@/assets/avatar.png'
 import { Search } from '@element-plus/icons-vue'
-
+import { useRouter } from 'vue-router'
+const router = useRouter()
 const input1 = ref('')
 const urlAvatar = header
-const profileurl = '/profile'
+
+const handleSelect = (name) => {
+  router.push({ name })
+}
 </script>
 
 <style scoped>

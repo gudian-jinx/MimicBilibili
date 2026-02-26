@@ -3,6 +3,8 @@ import HomeView from '@/views/HomeView.vue'
 import Profile from '@/views/Profile.vue'
 import ProfileHome from '@/views/ProfileHome.vue'
 import Test from '@/views/Test.vue'
+import CompontentsTest from '@/views/compontentsTest.vue'
+import ProfileOther from '@/views/ProfileOther.vue'
 
 const routes = [
   {
@@ -11,21 +13,35 @@ const routes = [
   },
   {
     path: '/home',
+    name: 'Home',
     redirect: '/', // 访问 /home 时自动跳转到 /
   },
   {
     path: '/profile',
+    name: 'Profile',
     component: Profile,
+    // 当访问 /profile 时，重定向到名为 ProfileHome 的子路由
+    redirect: { name: 'ProfileHome' },
     children: [
       {
         path: 'home',
+        name: 'ProfileHome',
         component: ProfileHome,
+      },
+      {
+        path: 'other',
+        name: 'ProfileOther',
+        component: ProfileOther,
       },
     ],
   },
   {
     path: '/test',
     component: Test,
+  },
+  {
+    path: '/cptest',
+    component: CompontentsTest,
   },
 ]
 
