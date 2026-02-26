@@ -3,7 +3,7 @@
     <el-carousel-item v-for="item in imgList" :key="item">
       <div class="carousel-content">
         <h3>
-          <img :src="item" alt="图片找不到了" class="imglb" />
+          <img :src="item.url" alt="图片找不到了" class="imglb" />
         </h3>
       </div>
     </el-carousel-item>

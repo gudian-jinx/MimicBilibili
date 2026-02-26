@@ -11,7 +11,7 @@
             <span class="introduction1-right">查看更多</span>
           </div>
           <div class="show1">
-            <div v-for="item in videoList" :key="item.index" class="video-card">
+            <div v-for="item in dataList" :key="item.index" class="video-card">
               <VideoCard :videoData="item" />
             </div>
           </div>
@@ -25,7 +25,7 @@
             <span class="introduction2-right">查看更多</span>
           </div>
           <div class="show2">
-            <div v-for="item in videoList" :key="item.index" class="video-card">
+            <div v-for="item in dataList" :key="item.index" class="video-card">
               <VideoCard :videoData="item" />
             </div>
           </div>
@@ -39,7 +39,7 @@
             <span class="introduction3-right">查看更多</span>
           </div>
           <div class="show3">
-            <div v-for="item in videoList" :key="item.index" class="video-card">
+            <div v-for="item in dataList" :key="item.index" class="video-card">
               <VideoCard :videoData="item" />
             </div>
           </div>
@@ -53,7 +53,7 @@
             <span class="introduction4-right">查看更多</span>
           </div>
           <div class="show4">
-            <div v-for="item in videoList" :key="item.index" class="video-card">
+            <div v-for="item in dataList" :key="item.id" class="video-card">
               <VideoCard :videoData="item" />
             </div>
           </div>
@@ -75,35 +75,59 @@
           <span>编辑></span>
         </div>
       </div>
+      <div class="right3">
+        <button @click="fetchData" :disable="loading">
+          {{ loading ? '换一只狗狗' : '加载中...' }}
+        </button>
+        <img :src="dogUrl" alt="图片消失了" style="width: 100%; border-radius: 8px" />
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
 import VideoCard from './VideoCard.vue'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import videoCardImg from '@/assets/videoCardImg.png'
+import axios from 'axios'
+const dataList = ref({})
 
-const videoList = ref([
-  {
-    index: 1,
-    head: videoCardImg,
-    mid: 'Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯',
-    bottom: 'up',
-  },
-  {
-    index: 2,
-    head: videoCardImg,
-    mid: 'Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯',
-    bottom: 'up',
-  },
-  {
-    index: 3,
-    head: videoCardImg,
-    mid: 'Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯',
-    bottom: 'up',
-  },
-])
+const fetchCard = async () => {
+  try {
+    const res = await axios.get('https://dummyjson.com/products?limit=5')
+    dataList.value = res.data.products
+  } catch (err) {
+    console.error('获取失败:', err) // 修正变量名
+  } finally {
+    // 关键：使用 .value 查看内部数据
+    // 或者使用 JSON.parse(JSON.stringify()) 彻底脱掉响应式外壳
+    console.warn('--- 终于执行到这里了 ---')
+    console.log('数据内容:', dataList.value)
+  }
+}
+// 页面加载完成后执行
+onMounted(() => {
+  fetchData()
+  fetchCard()
+})
+
+const dogUrl = ref()
+const loading = ref(false)
+const fetchData = async () => {
+  loading.value = true
+  try {
+    // 1. 请求数据
+    const res = await axios.get('https://dog.ceo/api/breeds/image/random')
+    dogUrl.value = res.data.message
+  } catch (err) {
+    console.error('获取失败', err)
+  }
+}
+
+// 页面加载完成后执行
+onMounted(() => {
+  fetchData()
+})
 </script>
 
 <style scoped>

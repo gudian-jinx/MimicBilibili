@@ -33,7 +33,7 @@
     <el-menu-item index="Profile">
       <el-avatar :src="urlAvatar" />
     </el-menu-item>
-    <el-menu-item>
+    <el-menu-item index="12">
       <div
         class="topbottom"
         style="
@@ -48,7 +48,7 @@
         <span>大会员</span>
       </div>
     </el-menu-item>
-    <el-menu-item>
+    <el-menu-item index="13">
       <div
         class="topbottom"
         style="
@@ -63,7 +63,7 @@
         <span>消息</span>
       </div>
     </el-menu-item>
-    <el-menu-item>
+    <el-menu-item index="14">
       <div
         class="topbottom"
         style="
@@ -78,7 +78,7 @@
         <span>动态</span>
       </div>
     </el-menu-item>
-    <el-menu-item>
+    <el-menu-item index="15">
       <div
         class="topbottom"
         style="
@@ -93,7 +93,7 @@
         <span>收藏</span>
       </div>
     </el-menu-item>
-    <el-menu-item>
+    <el-menu-item index="16">
       <div
         class="topbottom"
         style="
@@ -108,7 +108,7 @@
         <span>历史</span>
       </div>
     </el-menu-item>
-    <el-menu-item>
+    <el-menu-item index="17">
       <div
         class="topbottom"
         style="
@@ -123,7 +123,7 @@
         <span>创作中心</span>
       </div>
     </el-menu-item>
-    <el-menu-item>
+    <el-menu-item index="18">
       <el-button type="danger">
         <el-icon><Tools /></el-icon>
         投稿
@@ -141,7 +141,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 const input1 = ref('')
 const urlAvatar = header
-
+const activeIndex = ref('1') // 根据你的逻辑给个初始值
 const handleSelect = (name) => {
   router.push({ name })
 }

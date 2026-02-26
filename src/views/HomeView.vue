@@ -2,6 +2,7 @@
   <div class="header">
     <header-nav />
   </div>
+
   <div class="mainlayout">
     <div class="nav">
       <Channel />
@@ -9,126 +10,94 @@
 
     <div class="content-grid">
       <div class="carousel">
-        <Carousel :imgList="imgList" />
+        <el-skeleton :loading="isLoading" animated>
+          <template #template>
+            <el-skeleton-item variant="image" />
+          </template>
+          <template #default>
+            <Carousel :imgList="carouselList" />
+          </template>
+        </el-skeleton>
       </div>
 
-      <div v-for="item in videoList" :key="item.index" class="video-card">
-        <VideoCard :videoData="item" />
-      </div>
+      <template v-if="isLoading">
+        <div v-for="i in 10" :key="'skeleton-' + i" class="video-card">
+          <el-card>
+            <el-skeleton animated>
+              <template #template>
+                <el-skeleton-item variant="image" style="width: 100%; height: 150px" />
+                <div style="padding: 14px">
+                  <el-skeleton-item variant="h3" style="width: 80%" />
+                  <el-skeleton-item variant="text" style="margin-top: 10px" />
+                  <el-skeleton-item variant="text" style="width: 60%; margin-top: 5px" />
+                </div>
+              </template>
+            </el-skeleton>
+          </el-card>
+        </div>
+      </template>
+
+      <template v-else>
+        <div v-for="item in dataList" :key="item.id" class="video-card">
+          <VideoCard :videoData="item" />
+        </div>
+      </template>
     </div>
   </div>
-
-  <div class="loading" v-if="isLoading">加载更多中...</div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import Bg from '@/assets/bg.png'
+import { ref, onMounted } from 'vue'
+import axios from 'axios'
+// 组件导入
 import Channel from './Channel.vue'
 import Carousel from './Carousel.vue'
 import HeaderNav from './HeaderNav.vue'
 import VideoCard from './VideoCard.vue'
-import img1 from '@/assets/img1.png'
-import img2 from '@/assets/img2.png'
-import img3 from '@/assets/img3.png'
-import videoCardImg from '@/assets/videoCardImg.png'
 
-const imgList = ref([img1, img2, img3])
-const videoList = ref([
-  {
-    index: 1,
-    head: videoCardImg,
-    mid: 'Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯',
-    bottom: 'up',
-  },
-  {
-    index: 2,
-    head: videoCardImg,
-    mid: 'Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯',
-    bottom: 'up',
-  },
-  {
-    index: 3,
-    head: videoCardImg,
-    mid: 'Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯',
-    bottom: 'up',
-  },
-  {
-    index: 4,
-    head: videoCardImg,
-    mid: 'Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯',
-    bottom: 'up',
-  },
-  {
-    index: 4,
-    head: videoCardImg,
-    mid: 'Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯',
-    bottom: 'up',
-  },
-  {
-    index: 4,
-    head: videoCardImg,
-    mid: 'Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯',
-    bottom: 'up',
-  },
-  {
-    index: 4,
-    head: videoCardImg,
-    mid: 'Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯',
-    bottom: 'up',
-  },
-  {
-    index: 4,
-    head: videoCardImg,
-    mid: 'Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯',
-    bottom: 'up',
-  },
-  {
-    index: 4,
-    head: videoCardImg,
-    mid: 'Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯',
-    bottom: 'up',
-  },
-  {
-    index: 4,
-    head: videoCardImg,
-    mid: 'Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯',
-    bottom: 'up',
-  },
-  {
-    index: 4,
-    head: videoCardImg,
-    mid: 'Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯',
-    bottom: 'up',
-  },
-  {
-    index: 4,
-    head: videoCardImg,
-    mid: 'Zeus玩上单ADC玩上瘾了，上单卢锡安、上单VN、上单韦鲁斯',
-    bottom: 'up',
-  },
-])
+// 状态控制
+const dataList = ref([]) // 初始化为数组
+const carouselList = ref([])
+const isLoading = ref(true) // 初始骨架屏状态
 
-const urlBg = Bg
-const fit = 'cover'
-const isLoading = ref(false)
+// 获取商品数据
+const fetchData = async () => {
+  try {
+    const res = await axios.get('https://dummyjson.com/products?limit=20')
+    dataList.value = res.data.products
+  } catch (err) {
+    console.error('商品获取失败:', err)
+  }
+}
 
-// 模拟触底加载更多数据
-const loadMoreVideos = () => {
+// 获取轮播图（猫咪）数据
+const fetchCarousel = async () => {
+  try {
+    const res = await axios.get('https://api.thecatapi.com/v1/images/search?limit=5')
+    // 强制截取 5 张，防止 API 抽风返回 10 张
+    carouselList.value = res.data.slice(0, 5)
+  } catch (err) {
+    console.error('猫咪获取失败:', err)
+  }
+}
+
+// 初始化页面：确保两个请求都尝试完成后再关闭骨架屏
+const initPage = async () => {
   isLoading.value = true
-  setTimeout(() => {
-    // 请求接口获取新数据，并 push 到现有数组后面
-    const newData = [{ title: '新视频A' }, { title: '新视频B' }, { title: '新视频C' }]
-    videoList.value.push(...newData)
-    isLoading.value = false
-  }, 1000)
+  try {
+    // 并发请求
+    await Promise.all([fetchData(), fetchCarousel()])
+  } finally {
+    // 稍微延迟关闭，避免闪烁过快
+    setTimeout(() => {
+      isLoading.value = false
+    }, 800)
+  }
 }
 
-const activeIndex = ref('1')
-const activeIndex2 = ref('1')
-const handleSelect = (key, keyPath) => {
-  console.log(key, keyPath)
-}
+onMounted(() => {
+  initPage()
+})
 </script>
 
 <style scoped>
