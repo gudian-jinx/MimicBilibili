@@ -51,9 +51,9 @@ import { ref, onMounted } from 'vue'
 import axios from 'axios'
 // 组件导入
 import Channel from './Channel.vue'
-import Carousel from './Carousel.vue'
-import HeaderNav from './HeaderNav.vue'
-import VideoCard from './VideoCard.vue'
+import Carousel from '../components/Carousel.vue'
+import HeaderNav from '../components/HeaderNav.vue'
+import VideoCard from '../components/VideoCard.vue'
 
 // 状态控制
 const dataList = ref([]) // 初始化为数组

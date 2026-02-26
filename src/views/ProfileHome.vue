@@ -11,9 +11,28 @@
             <span class="introduction1-right">查看更多</span>
           </div>
           <div class="show1">
-            <div v-for="item in dataList" :key="item.index" class="video-card">
-              <VideoCard :videoData="item" />
-            </div>
+            <template v-if="isLoading">
+              <div v-for="i in 5" :key="'skeleton-' + i" class="video-card">
+                <el-card>
+                  <el-skeleton animated>
+                    <template #template>
+                      <el-skeleton-item variant="image" style="width: 100%; height: 150px" />
+                      <div style="padding: 14px">
+                        <el-skeleton-item variant="h3" style="width: 80%" />
+                        <el-skeleton-item variant="text" style="margin-top: 10px" />
+                        <el-skeleton-item variant="text" style="width: 60%; margin-top: 5px" />
+                      </div>
+                    </template>
+                  </el-skeleton>
+                </el-card>
+              </div>
+            </template>
+
+            <template v-else>
+              <div v-for="item in dataList" :key="item.id" class="video-card">
+                <VideoCard :videoData="item" />
+              </div>
+            </template>
           </div>
         </div>
         <div>
@@ -25,9 +44,28 @@
             <span class="introduction2-right">查看更多</span>
           </div>
           <div class="show2">
-            <div v-for="item in dataList" :key="item.index" class="video-card">
-              <VideoCard :videoData="item" />
-            </div>
+            <template v-if="isLoading">
+              <div v-for="i in 5" :key="'skeleton-' + i" class="video-card">
+                <el-card>
+                  <el-skeleton animated>
+                    <template #template>
+                      <el-skeleton-item variant="image" style="width: 100%; height: 150px" />
+                      <div style="padding: 14px">
+                        <el-skeleton-item variant="h3" style="width: 80%" />
+                        <el-skeleton-item variant="text" style="margin-top: 10px" />
+                        <el-skeleton-item variant="text" style="width: 60%; margin-top: 5px" />
+                      </div>
+                    </template>
+                  </el-skeleton>
+                </el-card>
+              </div>
+            </template>
+
+            <template v-else>
+              <div v-for="item in dataList" :key="item.id" class="video-card">
+                <VideoCard :videoData="item" />
+              </div>
+            </template>
           </div>
         </div>
         <div>
@@ -39,9 +77,28 @@
             <span class="introduction3-right">查看更多</span>
           </div>
           <div class="show3">
-            <div v-for="item in dataList" :key="item.index" class="video-card">
-              <VideoCard :videoData="item" />
-            </div>
+            <template v-if="isLoading">
+              <div v-for="i in 5" :key="'skeleton-' + i" class="video-card">
+                <el-card>
+                  <el-skeleton animated>
+                    <template #template>
+                      <el-skeleton-item variant="image" style="width: 100%; height: 150px" />
+                      <div style="padding: 14px">
+                        <el-skeleton-item variant="h3" style="width: 80%" />
+                        <el-skeleton-item variant="text" style="margin-top: 10px" />
+                        <el-skeleton-item variant="text" style="width: 60%; margin-top: 5px" />
+                      </div>
+                    </template>
+                  </el-skeleton>
+                </el-card>
+              </div>
+            </template>
+
+            <template v-else>
+              <div v-for="item in dataList" :key="item.id" class="video-card">
+                <VideoCard :videoData="item" />
+              </div>
+            </template>
           </div>
         </div>
         <div>
@@ -53,9 +110,28 @@
             <span class="introduction4-right">查看更多</span>
           </div>
           <div class="show4">
-            <div v-for="item in dataList" :key="item.id" class="video-card">
-              <VideoCard :videoData="item" />
-            </div>
+            <template v-if="isLoading">
+              <div v-for="i in 5" :key="'skeleton-' + i" class="video-card">
+                <el-card>
+                  <el-skeleton animated>
+                    <template #template>
+                      <el-skeleton-item variant="image" style="width: 100%; height: 150px" />
+                      <div style="padding: 14px">
+                        <el-skeleton-item variant="h3" style="width: 80%" />
+                        <el-skeleton-item variant="text" style="margin-top: 10px" />
+                        <el-skeleton-item variant="text" style="width: 60%; margin-top: 5px" />
+                      </div>
+                    </template>
+                  </el-skeleton>
+                </el-card>
+              </div>
+            </template>
+
+            <template v-else>
+              <div v-for="item in dataList" :key="item.id" class="video-card">
+                <VideoCard :videoData="item" />
+              </div>
+            </template>
           </div>
         </div>
       </div>
@@ -79,18 +155,40 @@
         <button @click="fetchData" :disable="loading">
           {{ loading ? '换一只狗狗' : '加载中...' }}
         </button>
-        <img :src="dogUrl" alt="图片消失了" style="width: 100%; border-radius: 8px" />
+        <el-skeleton :loading="isLoading" animated>
+          <template #template>
+            <el-skeleton-item variant="image" style="width: 100%; height: 200px" />
+          </template>
+          <template #default>
+            <img :src="dogUrl" alt="图片消失了" style="width: 100%; border-radius: 8px" />
+          </template>
+        </el-skeleton>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import VideoCard from './VideoCard.vue'
+import VideoCard from '../components/VideoCard.vue'
 import { ref, onMounted } from 'vue'
 import videoCardImg from '@/assets/videoCardImg.png'
+
+const isLoading = ref(true) // 初始骨架屏状态
 import axios from 'axios'
 const dataList = ref({})
+const dogUrl = ref()
+const loading = ref(false)
+
+const fetchData = async () => {
+  loading.value = true
+  try {
+    // 1. 请求数据
+    const res = await axios.get('https://dog.ceo/api/breeds/image/random')
+    dogUrl.value = res.data.message
+  } catch (err) {
+    console.error('获取失败', err)
+  }
+}
 
 const fetchCard = async () => {
   try {
@@ -105,28 +203,24 @@ const fetchCard = async () => {
     console.log('数据内容:', dataList.value)
   }
 }
-// 页面加载完成后执行
-onMounted(() => {
-  fetchData()
-  fetchCard()
-})
 
-const dogUrl = ref()
-const loading = ref(false)
-const fetchData = async () => {
-  loading.value = true
+// 初始化页面：确保两个请求都尝试完成后再关闭骨架屏
+const initPage = async () => {
+  isLoading.value = true
   try {
-    // 1. 请求数据
-    const res = await axios.get('https://dog.ceo/api/breeds/image/random')
-    dogUrl.value = res.data.message
-  } catch (err) {
-    console.error('获取失败', err)
+    // 并发请求
+    await Promise.all([fetchData(), fetchCard()])
+  } finally {
+    // 稍微延迟关闭，避免闪烁过快
+    setTimeout(() => {
+      isLoading.value = false
+    }, 800)
   }
 }
 
 // 页面加载完成后执行
 onMounted(() => {
-  fetchData()
+  initPage()
 })
 </script>
 

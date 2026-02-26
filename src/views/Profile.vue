@@ -16,7 +16,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import HeaderNav from './HeaderNav.vue'
+import HeaderNav from '../components/HeaderNav.vue'
 import logo from '@/assets/logo.png'
 import ProfileBanner from './ProfileBanner.vue'
 import ProfileOption from './ProfileOption.vue'
