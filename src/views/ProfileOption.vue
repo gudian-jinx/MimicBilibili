@@ -8,14 +8,16 @@
       :router="true"
       @select="handleSelect"
     >
-      <el-menu-item index="profile/home"><el-icon><House /></el-icon>主页</el-menu-item>
+      <el-menu-item index="profile/home"
+        ><el-icon><House /></el-icon>主页</el-menu-item
+      >
       <el-menu-item index="2">动态</el-menu-item>
       <el-menu-item index="3">投稿</el-menu-item>
       <el-menu-item index="4">合集和系列</el-menu-item>
       <el-menu-item index="5">收藏</el-menu-item>
       <el-menu-item index="6">追番追剧</el-menu-item>
       <el-menu-item index="7">设置</el-menu-item>
-      
+
       <div class="search-wrapper">
         <el-input
           v-model="input3"
@@ -48,7 +50,6 @@
   </div>
 </template>
 
-
 <script lang="ts" setup>
 import { ref } from 'vue'
 
@@ -60,7 +61,6 @@ import { Search } from '@element-plus/icons-vue'
 const input1 = ref('')
 const input2 = ref('')
 const input3 = ref('')
-
 </script>
 
 <style scoped>
