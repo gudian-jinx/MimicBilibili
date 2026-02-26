@@ -2,14 +2,14 @@
   <div class="banner-container">
     <div class="user-info-section">
       <div class="avatar-wrapper">
-        <el-avatar :src="avaterUrl" alt="头像" ></el-avatar>
+        <el-avatar :src="avaterUrl" alt="头像"></el-avatar>
       </div>
 
       <div class="user-details">
         <div class="name-row">
-          <h2 class="user-name">摆烂自动机</h2>
-          <span class="level-tag" style="background-color: orange;">LV5</span>
-          <span class="vip-tag" style="background-color: slategray;">大会员</span>
+          <h2 class="user-name">Jinx</h2>
+          <span class="level-tag" style="background-color: orange">LV5</span>
+          <span class="vip-tag" style="background-color: slategray">大会员</span>
           <button class="fan-badge">+ 粉丝勋章</button>
         </div>
         <div class="signature">金克丝的含义就是jinx，笨！</div>
@@ -18,26 +18,20 @@
 
     <div class="action-section">
       <div class="view-selector">
-        
-
-        <el-dropdown >
-            <span class="el-dropdown-link">
+        <el-dropdown>
+          <span class="el-dropdown-link">
             视角：我自己
             <el-icon class="el-icon--right">
-                <arrow-down />
+              <arrow-down />
             </el-icon>
-            </span>
-            <template #dropdown>
+          </span>
+          <template #dropdown>
             <el-dropdown-menu>
-                <el-dropdown-item>我的粉丝</el-dropdown-item>
-                <el-dropdown-item>新访客</el-dropdown-item>
+              <el-dropdown-item>我的粉丝</el-dropdown-item>
+              <el-dropdown-item>新访客</el-dropdown-item>
             </el-dropdown-menu>
-            </template>
+          </template>
         </el-dropdown>
-
-
-
-
       </div>
       <button class="theme-btn">
         <el-icon><Brush /></el-icon>
@@ -54,11 +48,11 @@ import avaterUrl from '@/assets/avatar.png'
 .banner-container {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end; 
+  align-items: flex-end;
   padding: 0 20px 20px 20px;
-  
+
   /* 关键修改：去掉固定的 200px */
-  flex: 1; 
+  flex: 1;
   width: 95%;
   margin: 0 auto;
   color: white; /* 之前你写的是 red，B站风格通常是 white */
@@ -110,7 +104,7 @@ import avaterUrl from '@/assets/avatar.png'
   padding: 4px 12px;
   border-radius: 4px;
   /* 毛玻璃模糊效果 */
-  backdrop-filter: blur(4px); 
+  backdrop-filter: blur(4px);
   cursor: pointer;
   transition: background 0.3s;
 }
@@ -118,5 +112,4 @@ import avaterUrl from '@/assets/avatar.png'
 .view-selector:hover {
   background: rgba(255, 255, 255, 0.3); /* 鼠标悬浮变亮 */
 }
-
 </style>
