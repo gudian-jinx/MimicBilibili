@@ -21,7 +21,7 @@
       </div>
 
       <template v-if="isLoading">
-        <div v-for="i in 10" :key="'skeleton-' + i" class="video-card">
+        <div v-for="i in 6" :key="'skeleton-' + i" class="video-card">
           <el-card>
             <el-skeleton animated>
               <template #template>
@@ -43,12 +43,11 @@
         </div>
       </template>
     </div>
+
+    <!-- 无限滚动 -->
+    <div v-if="loadingMore" class="loading-more">加载中...</div>
+    <div ref="loadMoreRef" class="load-more-trigger" v-if="hasMore"></div>
   </div>
-
-  <!-- 无限滚动 -->
-  <div v-if="loadingMore" class="loading-more">加载中...</div>
-
-  <div ref="loadMoreRef" class="load-more-trigger" v-if="hasMore"></div>
 </template>
 
 <script setup>
@@ -222,5 +221,9 @@ onUnmounted(() => {
   grid-column: span 2;
   grid-row: span 2;
   background: #ffaaaa;
+}
+
+.load-more-trigger {
+  height: 10px;
 }
 </style>
