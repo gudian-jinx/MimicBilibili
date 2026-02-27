@@ -188,8 +188,8 @@ const handleSelect = (name) => {
   max-width: 100%;
   min-width: 1200px; /* 让菜单和下方的 Grid 同步产生滚动条，而不是互相挤压 */
 }
-.el-menu-item {
-  color: white;
+:deep(.el-menu-item) {
+  color: var(--navbar-text-color);
 }
 /* 1. 缩小每个菜单项的左右内边距 */
 :deep(.el-menu--horizontal > .el-menu-item) {

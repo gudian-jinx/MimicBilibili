@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div class="header dark-header">
     <header-nav />
   </div>
 
@@ -156,6 +156,10 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+.dark-header {
+  --navbar-text-color: white;
+}
+
 .carousel {
   grid-column: span 2;
   grid-row: span 2;

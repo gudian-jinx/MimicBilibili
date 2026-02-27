@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div class="header dark-header">
     <header-nav>
       <template #firstItem>
         <img :src="logo" alt="图片不存在" width="50px" />
@@ -41,5 +41,8 @@ import ProfileOption from './ProfileOption.vue'
   margin: 0 auto; /* 将容器水平居中 */
   min-width: 1200px; /* 建议加一个最小宽度，防止屏幕缩小时你的菜单挤成一团 */
   height: 200px;
+}
+.dark-header {
+  --navbar-text-color: white;
 }
 </style>

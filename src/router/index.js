@@ -4,6 +4,7 @@ import Profile from '@/views/Profile.vue'
 import ProfileHome from '@/views/ProfileHome.vue'
 import Test from '@/views/Test.vue'
 import ProfileOther from '@/views/ProfileOther.vue'
+import VideoView from '@/views/VideoView.vue'
 
 const routes = [
   {
@@ -33,6 +34,10 @@ const routes = [
         component: ProfileOther,
       },
     ],
+  },
+  {
+    path: '/video',
+    component: VideoView,
   },
   {
     path: '/test',
