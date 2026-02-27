@@ -40,3 +40,6 @@ __screenshots__/
 
 # assets
 src/assets/
+
+# Test
+src/views/Test.vue
