@@ -139,7 +139,7 @@ src
 ├── views          # 页面
 ├── router         # 路由
 ├── store          # 全局状态
-└── utils
+└── hooks          # 复用逻辑
 ```
 
 ---
