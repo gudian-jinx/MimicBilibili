@@ -10,9 +10,9 @@
 
     <div class="content-grid">
       <div class="carousel">
-        <el-skeleton :loading="isLoading" animated>
+        <el-skeleton :loading="isFirstLoading" animated>
           <template #template>
-            <el-skeleton-item variant="image" />
+            <el-skeleton-item variant="image" style="height: 100%" />
           </template>
           <template #default>
             <Carousel :imgList="carouselList" />
@@ -20,7 +20,7 @@
         </el-skeleton>
       </div>
 
-      <template v-if="isLoading">
+      <template v-if="isFirstLoading">
         <div v-for="i in 6" :key="'skeleton-' + i" class="video-card">
           <el-card>
             <el-skeleton animated>
@@ -44,119 +44,76 @@
       </template>
     </div>
 
-    <!-- 无限滚动 -->
-    <div v-if="loadingMore" class="loading-more">加载中...</div>
-    <div ref="loadMoreRef" class="load-more-trigger" v-if="hasMore"></div>
+    <div class="scroll-footer">
+      <div v-if="loading" class="loading-more">
+        <el-icon class="is-loading"><Loading /></el-icon> 加载中...
+      </div>
+      <div v-else-if="!hasMore" class="no-more">没有更多视频了</div>
+
+      <div ref="loadMoreRef" class="load-more-trigger"></div>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, nextTick } from 'vue'
+import { ref, onMounted } from 'vue'
 import axios from 'axios'
+import { useRouter } from 'vue-router'
+import { Loading } from '@element-plus/icons-vue'
+
 // 组件导入
 import Channel from './Channel.vue'
 import Carousel from '../components/Carousel.vue'
 import HeaderNav from '../components/HeaderNav.vue'
-import { useRouter } from 'vue-router'
 import VideoCard from '../components/VideoCard.vue'
+
+import { useInfiniteScroll } from '@/hooks/useInfiniteScroll'
+
 const router = useRouter()
+const goDetail = (id) => router.push(`/video/${id}`)
 
-const goDetail = (id) => {
-  router.push(`/video/${id}`)
-}
-/* ========= 状态 ========= */
-
-const dataList = ref([]) // 初始化为数组
-const carouselList = ref([])
-const isLoading = ref(true) // 初始骨架屏状态
-
-/* 无限滚动核心状态 */
-const page = ref(0)
+/* ========= 业务配置 ========= */
 const limit = 10
-const hasMore = ref(true)
-const loadingMore = ref(false)
+const carouselList = ref([])
+const isFirstLoading = ref(true) // 用于控制首屏骨架屏
 
-/* 哨兵 */
-const loadMoreRef = ref(null)
-let observer = null
+/* ========= 核心：适配 Hook 的请求函数 ========= */
+// Hook 要求 fetchFn 接收当前 page 并返回 { list, hasMore }
+const fetchVideos = async (currentPage) => {
+  const skip = currentPage * limit
+  const res = await axios.get(`https://dummyjson.com/products?limit=${limit}&skip=${skip}`)
 
-// 获取商品数据
-const fetchData = async () => {
-  if (!hasMore.value || loadingMore.value) return
-
-  loadingMore.value = true
-
-  try {
-    const skip = page.value * limit
-    const res = await axios.get(`https://dummyjson.com/products?limit=${limit}&skip=${skip}`)
-
-    const list = res.data.products
-
-    if (list.length < limit) {
-      hasMore.value = false
-    }
-
-    dataList.value.push(...list)
-    page.value++
-  } catch (err) {
-    console.error('分页加载失败', err)
-  } finally {
-    loadingMore.value = false
+  return {
+    list: res.data.products,
+    // 判断是否还有更多：如果当前返回量小于限制量，或者已达到 total
+    hasMore: res.data.products.length === limit && (currentPage + 1) * limit < res.data.total,
   }
 }
 
-// 获取轮播图（猫咪）数据
+// 获取轮播图数据
 const fetchCarousel = async () => {
   try {
     const res = await axios.get('https://api.thecatapi.com/v1/images/search?limit=5')
-    // 强制截取 5 张，防止 API 抽风返回 10 张
     carouselList.value = res.data.slice(0, 5)
   } catch (err) {
-    console.error('猫咪获取失败:', err)
+    console.error('轮播图获取失败:', err)
   }
 }
 
-// 初始化页面：确保两个请求都尝试完成后再关闭骨架屏
-const initPage = async () => {
-  isLoading.value = true
+/* ========= 初始化 Hook ========= */
+// 将 dataList 重命名以匹配组件原逻辑
+const { list: dataList, loading, hasMore, loadMoreRef } = useInfiniteScroll(fetchVideos)
 
-  try {
-    await Promise.all([fetchData(), fetchCarousel()])
-  } finally {
-    setTimeout(() => {
-      isLoading.value = false
-      nextTick(setupObserver)
-    }, 800)
-  }
-}
+/* ========= 生命周期：处理首屏骨架屏同步 ========= */
+onMounted(async () => {
+  // 同时等待轮播图加载
+  // 注意：Hook 内部已经自动执行了第一次 fetchVideos
+  await fetchCarousel()
 
-/* ========= 哨兵监听 ========= */
-
-const setupObserver = () => {
-  observer = new IntersectionObserver(
-    (entries) => {
-      if (entries[0].isIntersecting) {
-        fetchData()
-      }
-    },
-    {
-      root: null,
-      rootMargin: '200px', // 提前加载
-      threshold: 0,
-    },
-  )
-
-  if (loadMoreRef.value) {
-    observer.observe(loadMoreRef.value)
-  }
-}
-
-onMounted(initPage)
-
-onUnmounted(() => {
-  if (observer) {
-    observer.disconnect()
-  }
+  // 给用户一点视觉缓冲，然后关闭骨架屏
+  setTimeout(() => {
+    isFirstLoading.value = false
+  }, 600)
 })
 </script>
 
