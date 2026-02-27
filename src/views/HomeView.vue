@@ -39,7 +39,7 @@
 
       <template v-else>
         <div v-for="item in dataList" :key="item.id" class="video-card">
-          <VideoCard :videoData="item" />
+          <VideoCard :videoData="item" @click="goDetail(item.id)" />
         </div>
       </template>
     </div>
@@ -57,8 +57,13 @@ import axios from 'axios'
 import Channel from './Channel.vue'
 import Carousel from '../components/Carousel.vue'
 import HeaderNav from '../components/HeaderNav.vue'
+import { useRouter } from 'vue-router'
 import VideoCard from '../components/VideoCard.vue'
+const router = useRouter()
 
+const goDetail = (id) => {
+  router.push(`/video/${id}`)
+}
 /* ========= 状态 ========= */
 
 const dataList = ref([]) // 初始化为数组
