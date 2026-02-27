@@ -31,7 +31,7 @@
       />
     </el-menu-item>
     <el-menu-item index="Profile">
-      <el-avatar :src="urlAvatar" />
+      <el-avatar :src="userStore.avatar" />
     </el-menu-item>
     <el-menu-item index="12">
       <div
@@ -134,14 +134,18 @@
 
 <script setup>
 import { ref } from 'vue'
-
-import header from '@/assets/avatar.png'
-import { Search } from '@element-plus/icons-vue'
+import { Search, Monitor, Download, Tools } from '@element-plus/icons-vue'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/user' // ✅ 这里是命名导入
+
+const userStore = useUserStore() // ✅ Pinia store 实例
+
+console.log('# ', userStore)
+
 const router = useRouter()
 const input1 = ref('')
-const urlAvatar = header
 const activeIndex = ref('1') // 根据你的逻辑给个初始值
+
 const handleSelect = (name) => {
   router.push({ name })
 }
