@@ -44,10 +44,15 @@
       </template>
     </div>
   </div>
+
+  <!-- 无限滚动 -->
+  <div v-if="loadingMore" class="loading-more">加载中...</div>
+
+  <div ref="loadMoreRef" class="load-more-trigger" v-if="hasMore"></div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 import axios from 'axios'
 // 组件导入
 import Channel from './Channel.vue'
@@ -55,18 +60,44 @@ import Carousel from '../components/Carousel.vue'
 import HeaderNav from '../components/HeaderNav.vue'
 import VideoCard from '../components/VideoCard.vue'
 
-// 状态控制
+/* ========= 状态 ========= */
+
 const dataList = ref([]) // 初始化为数组
 const carouselList = ref([])
 const isLoading = ref(true) // 初始骨架屏状态
 
+/* 无限滚动核心状态 */
+const page = ref(0)
+const limit = 10
+const hasMore = ref(true)
+const loadingMore = ref(false)
+
+/* 哨兵 */
+const loadMoreRef = ref(null)
+let observer = null
+
 // 获取商品数据
 const fetchData = async () => {
+  if (!hasMore.value || loadingMore.value) return
+
+  loadingMore.value = true
+
   try {
-    const res = await axios.get('https://dummyjson.com/products?limit=20')
-    dataList.value = res.data.products
+    const skip = page.value * limit
+    const res = await axios.get(`https://dummyjson.com/products?limit=${limit}&skip=${skip}`)
+
+    const list = res.data.products
+
+    if (list.length < limit) {
+      hasMore.value = false
+    }
+
+    dataList.value.push(...list)
+    page.value++
   } catch (err) {
-    console.error('商品获取失败:', err)
+    console.error('分页加载失败', err)
+  } finally {
+    loadingMore.value = false
   }
 }
 
@@ -84,19 +115,44 @@ const fetchCarousel = async () => {
 // 初始化页面：确保两个请求都尝试完成后再关闭骨架屏
 const initPage = async () => {
   isLoading.value = true
+
   try {
-    // 并发请求
     await Promise.all([fetchData(), fetchCarousel()])
   } finally {
-    // 稍微延迟关闭，避免闪烁过快
     setTimeout(() => {
       isLoading.value = false
+      nextTick(setupObserver)
     }, 800)
   }
 }
 
-onMounted(() => {
-  initPage()
+/* ========= 哨兵监听 ========= */
+
+const setupObserver = () => {
+  observer = new IntersectionObserver(
+    (entries) => {
+      if (entries[0].isIntersecting) {
+        fetchData()
+      }
+    },
+    {
+      root: null,
+      rootMargin: '200px', // 提前加载
+      threshold: 0,
+    },
+  )
+
+  if (loadMoreRef.value) {
+    observer.observe(loadMoreRef.value)
+  }
+}
+
+onMounted(initPage)
+
+onUnmounted(() => {
+  if (observer) {
+    observer.disconnect()
+  }
 })
 </script>
 

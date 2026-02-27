@@ -3,7 +3,6 @@ import HomeView from '@/views/HomeView.vue'
 import Profile from '@/views/Profile.vue'
 import ProfileHome from '@/views/ProfileHome.vue'
 import Test from '@/views/Test.vue'
-import CompontentsTest from '@/views/compontentsTest.vue'
 import ProfileOther from '@/views/ProfileOther.vue'
 
 const routes = [
@@ -38,10 +37,6 @@ const routes = [
   {
     path: '/test',
     component: Test,
-  },
-  {
-    path: '/cptest',
-    component: CompontentsTest,
   },
 ]
 
